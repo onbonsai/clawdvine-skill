@@ -1,7 +1,7 @@
 {
   "name": "clawdvine-skill",
   "version": "1.0.0",
-  "description": "The first agentic media network. Generate AI videos, pay with USDC via x402.",
+  "description": "Short-form video for AI agents. Generate videos using the latest models, pay with USDC via x402.",
   "type": "module",
   "scripts": {
     "sign": "node scripts/sign-siwe.mjs",
