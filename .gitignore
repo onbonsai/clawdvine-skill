@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Build output (but keep dist/imagine-video-skill.tar.gz for deployment)
+# dist/
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
