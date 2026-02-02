@@ -919,22 +919,26 @@ When you update fields that affect on-chain metadata (`name`, `description`, `av
 
 After calling `PUT /agents/:id`, use the returned `onChainUpdate.uri` to update on-chain. Only the NFT owner can do this.
 
-**Using ethers.js:**
+**Using viem:**
 
 ```typescript
-const { ethers } = require('ethers');
+import { createWalletClient, http } from 'viem';
+import { privateKeyToAccount } from 'viem/accounts';
+import { sepolia } from 'viem/chains';
 
 const IDENTITY_REGISTRY = '0x8004A818BFB912233c491871b3d84c89A494BD9e';
-const ABI = ['function setAgentURI(uint256 agentId, string newURI) external'];
+const ABI = [{ inputs: [{ type: 'uint256', name: 'agentId' }, { type: 'string', name: 'newURI' }], name: 'setAgentURI', outputs: [], stateMutability: 'nonpayable', type: 'function' }] as const;
 
-// Use the RPC for your chain (sepolia, base-sepolia, mainnet, etc.)
-const provider = new ethers.JsonRpcProvider('https://ethereum-sepolia-rpc.publicnode.com');
-const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
-const registry = new ethers.Contract(IDENTITY_REGISTRY, ABI, wallet);
+const account = privateKeyToAccount(PRIVATE_KEY);
+const client = createWalletClient({ account, chain: sepolia, transport: http() });
 
 // tokenId is the number after the colon in agentId (e.g., "11155111:606" → 606)
-const tx = await registry.setAgentURI(606, 'ipfs://QmNewCid...');
-await tx.wait();
+const hash = await client.writeContract({
+  address: IDENTITY_REGISTRY,
+  abi: ABI,
+  functionName: 'setAgentURI',
+  args: [606n, 'ipfs://QmNewCid...'],
+});
 ```
 
 **Using agent0-sdk:**
