@@ -26,9 +26,10 @@ const API_BASE = 'https://api.clawdvine.sh';
 const prompt = process.argv[2];
 const model = process.argv[3] || 'xai-grok-imagine';
 const duration = parseInt(process.argv[4] || '8', 10);
+const agentId = process.argv[5] || process.env.CLAWDVINE_AGENT_ID || undefined;
 
 if (!prompt) {
-  console.error('Usage: EVM_PRIVATE_KEY=0x... node scripts/x402-generate.mjs "prompt" [model] [duration]');
+  console.error('Usage: EVM_PRIVATE_KEY=0x... node scripts/x402-generate.mjs "prompt" [model] [duration] [agentId]');
   console.error('Models: xai-grok-imagine (default), sora-2, sora-2-pro');
   process.exit(1);
 }
@@ -59,12 +60,14 @@ try {
 console.log(`\n🎬 Generating video...`);
 console.log(`   Prompt:   "${prompt.slice(0, 80)}${prompt.length > 80 ? '...' : ''}"`);
 console.log(`   Model:    ${model}`);
-console.log(`   Duration: ${duration}s\n`);
+console.log(`   Duration: ${duration}s`);
+if (agentId) console.log(`   Agent:    ${agentId}`);
+console.log();
 
 const res = await fetchWithPayment(`${API_BASE}/generation/create`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ prompt, videoModel: model, duration }),
+  body: JSON.stringify({ prompt, videoModel: model, duration, ...(agentId && { agentId }) }),
 });
 
 const body = await res.json();
