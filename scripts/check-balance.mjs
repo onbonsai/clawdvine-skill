@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * check-balance.mjs — Check $IMAGINE token balance on Base
+ * check-balance.mjs — Check $CLAWDVINE token balance on Base
  *
  * Usage:
  *   node scripts/check-balance.mjs 0xYourAddress
@@ -11,7 +11,7 @@
  * No dependencies — uses raw RPC calls via fetch.
  */
 
-const IMAGINE_TOKEN = '0x16E3Bb377f1616A23b20d1DC6AD2a7F7161f2B07';
+const IMAGINE_TOKEN = '0x963e83082e0500ce5Da98c78E79A49C09084Bb07';
 const BASE_RPC = 'https://mainnet.base.org';
 const MIN_BALANCE = 10_000_000;
 const DECIMALS = 18;
@@ -64,6 +64,6 @@ const output = {
 console.log(JSON.stringify(output, null, 2));
 
 if (!eligible) {
-  console.error(`\n⚠️  Insufficient balance: ${humanBalance.toLocaleString()} / ${MIN_BALANCE.toLocaleString()} $IMAGINE required`);
+  console.error(`\n⚠️  Insufficient balance: ${humanBalance.toLocaleString()} / ${MIN_BALANCE.toLocaleString()} $CLAWDVINE required`);
   process.exit(1);
 }
