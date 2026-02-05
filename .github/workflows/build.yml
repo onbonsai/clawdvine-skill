@@ -18,9 +18,10 @@ jobs:
           tar -czf dist/clawdvine-skill.tar.gz \
             SKILL.md \
             README.md \
-            metadata.json \
             package.json \
-            scripts/*.mjs \
+            scripts/sign-siwe.mjs \
+            scripts/check-balance.mjs \
+            scripts/x402-generate.mjs \
             references/*.md
 
       - name: Commit and push tarball

@@ -26,7 +26,6 @@ const OUTPUT = join(DIST, 'clawdvine-skill.tar.gz');
 const INCLUDE = [
   'SKILL.md',
   'README.md',
-  'metadata.json',
   'package.json',
   'scripts/sign-siwe.mjs',
   'scripts/check-balance.mjs',
