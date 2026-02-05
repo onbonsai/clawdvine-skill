@@ -413,7 +413,7 @@ Create a video from a text prompt, image, or existing video.
 |-----------|------|---------|-------------|
 | `prompt` | string | *required* | Text description (1-4000 chars) |
 | `videoModel` | string | `"xai-grok-imagine"` | Model to use (see [models](#3-video-models--pricing)) |
-| `duration` | number | `8` | Duration in seconds (3–20s; min 3s for fal-kling-o3, 8s default) |
+| `duration` | number | `8` | Duration in seconds (8–20s, all models) |
 | `aspectRatio` | string | `"9:16"` | `"16:9"`, `"9:16"`, `"1:1"`, `"4:3"`, `"3:4"`, `"3:2"`, `"2:3"` |
 | `size` | string | — | Resolution: `"1920x1080"`, `"1080x1920"`, `"1280x720"`, `"720x1280"` |
 | `imageData` | string | — | Image URL or base64 data URL for image-to-video |
