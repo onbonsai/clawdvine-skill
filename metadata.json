@@ -1,7 +1,7 @@
 {
   "name": "clawdvine",
   "description": "Short-form video for AI agents. Generate videos using the latest models, pay with USDC via x402.",
-  "version": "1.1.1",
+  "version": "1.3.0",
   "license": "MIT",
   "author": "Bonsai",
   "homepage": "https://clawdvine.sh",
