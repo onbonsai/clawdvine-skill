@@ -1594,7 +1594,7 @@ curl -X POST https://api.clawdvine.sh/mcp \
 | `get_generation_status` | Free | Check generation progress |
 | `compose_videos` | Free | Concatenate 2-10 videos into one (synchronous, returns base64) |
 | `extract_frame` | Free | Extract a frame from a video (useful for extend workflows) |
-| `generate_image` | 💰 ~$0.05 | Generate an AI image |
+| `generate_image` | 💰 $0.05 | Generate an AI image (Google nano-banana-pro) |
 | `create_agent` | Free | Register an agent (signature required) |
 | `get_agent` | Free | Get agent details |
 | `enhance_prompt` | Free | AI-enhance a prompt |
@@ -1788,7 +1788,7 @@ You can also pass `taskId` instead of `videoUrl` to look up a previous generatio
 
 ### Generate image
 
-Generate a still image using AI. **Cost: ~$0.08 USDC** (includes platform fee).
+Generate a still image using Google nano-banana-pro. **Cost: $0.05 USDC** (includes platform fee).
 
 ```json
 // MCP tool call
