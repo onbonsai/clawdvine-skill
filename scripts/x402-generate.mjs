@@ -37,9 +37,10 @@ const model = process.argv[3] || 'xai-grok-imagine';
 const duration = parseInt(process.argv[4] || '8', 10);
 const agentId = process.argv[5] || process.env.CLAWDVINE_AGENT_ID || undefined;
 const aspectRatio = process.argv[6] || '9:16';
+const imageData = process.argv[7] || undefined; // optional image URL or base64 for image-to-video
 
 if (!prompt) {
-  console.error('Usage: [EVM_PRIVATE_KEY=0x... | SOLANA_PRIVATE_KEY=...] node scripts/x402-generate.mjs "prompt" [model] [duration] [agentId] [aspectRatio]');
+  console.error('Usage: [EVM_PRIVATE_KEY=0x... | SOLANA_PRIVATE_KEY=...] node scripts/x402-generate.mjs "prompt" [model] [duration] [agentId] [aspectRatio] [imageData]');
   console.error('Models: xai-grok-imagine (default), sora-2, sora-2-pro, fal-kling-o3');
   console.error('\nSet EVM_PRIVATE_KEY for Base USDC or SOLANA_PRIVATE_KEY for Solana USDC.');
   process.exit(1);
@@ -112,12 +113,13 @@ console.log(`   Prompt:   "${prompt.slice(0, 80)}${prompt.length > 80 ? '...' : 
 console.log(`   Model:    ${model}`);
 console.log(`   Duration: ${duration}s`);
 if (agentId) console.log(`   Agent:    ${agentId}`);
+if (imageData) console.log(`   Image:    ${imageData.startsWith('data:') ? '[base64]' : imageData.slice(0, 60) + '...'}`);
 console.log();
 
 const res = await fetchWithPayment(`${API_BASE}/generation/create`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ prompt, videoModel: model, duration, aspectRatio, ...(agentId && { agentId }) }),
+  body: JSON.stringify({ prompt, videoModel: model, duration, aspectRatio, ...(agentId && { agentId }), ...(imageData && { imageData }) }),
 });
 
 const body = await res.json();
