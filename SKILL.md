@@ -505,6 +505,7 @@ When paid with **USDC (x402)** you get `txHash` and `explorer`. When paid with *
   "provider": "xai",
   "estimatedCost": 1.2,
   "url": "https://clawdvine.sh/media/a1b2c3d4-...",
+  "statusUrl": "https://api.clawdvine.sh/generation/a1b2c3d4-.../status",
   "llms": "https://clawdvine.sh/media/a1b2c3d4-.../llms.txt",
   "txHash": "0xabc123...",
   "explorer": "https://basescan.org/tx/0xabc123..."
@@ -522,6 +523,7 @@ Poll for generation progress and results.
 ```json
 {
   "status": "processing",
+  "state": "processing",
   "metadata": { "percent": 45, "status": "generating" }
 }
 ```
@@ -531,7 +533,9 @@ Poll for generation progress and results.
 ```json
 {
   "status": "completed",
+  "state": "succeeded",
   "progress": 100,
+  "artifactUrl": "https://storj.onbons.ai/video-abc123.mp4",
   "txHash": "0xabc123...",
   "explorer": "https://basescan.org/tx/0xabc123...",
   "result": {
@@ -575,12 +579,14 @@ If `launchToken` was provided, the completed response includes a `token` field i
 
 #### Status values
 
-| Status | Meaning |
-|--------|---------|
-| `queued` | Waiting in queue |
-| `processing` | Actively generating |
-| `completed` | Done — result available |
-| `failed` | Generation failed — check `error` field |
+| Status | State (LRO) | Meaning |
+|--------|-------------|---------|
+| `queued` | `queued` | Waiting in queue |
+| `processing` | `processing` | Actively generating |
+| `completed` | `succeeded` | Done — result available, `artifactUrl` set |
+| `failed` | `failed` | Generation failed — check `error` field |
+
+> **LRO compatibility:** The `state` field follows the hey.lol x402 Bazaar LRO convention. The `statusUrl` in the create response points to this endpoint. The `artifactUrl` field contains the direct media URL when complete.
 
 ### GET /generation/models
 
